@@ -1,0 +1,17 @@
+[
+  {
+    "outputFileName": "Scripts/angular/App.js",
+    //"inputFiles": [
+    //  "Scripts/angular/Module.js",
+    //  "Scripts/angular/Run.js",
+    //  "Scripts/angular/Controller/ItemProperty.Ctrl.js",
+    //  "Scripts/angular/Controller/Item.Ctrl.js"
+    //]
+    "inputFiles": [
+      "Scripts/angular/Module.js",
+      "Scripts/angular/Run.js",
+      "Scripts/angular/Controller/*.js",
+      "Scripts/angular/Services/*.js"
+    ]
+  }
+]

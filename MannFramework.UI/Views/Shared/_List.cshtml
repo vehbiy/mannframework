@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Entity>
+
+@{
+    List<string> elements = new List<string>();
+    Item Item = null;
+    List<ItemProperty> properties = null;
+    string itemName = null;
+    bool allowEdit = false;
+    bool allowDelete = false;
+
+    if (Model != null)
+    {
+        Type type = Model.GetType().GetGenericArguments().FirstOrDefault();
+        Item = CodeGeneratorHelper.GetItemFromType(type);
+        properties = Item.Properties.Where(x => !x.MvcIgnore && !x.MvcListIgnore).ToList();
+        itemName = Item.Name;
+        allowEdit = !type.HasAttribute<NotUpdatedAttribute>();
+        allowDelete = !type.HasAttribute<NotDeletedAttribute>();
+    }
+}
+
+<table class="table table-striped">
+    <tr>
+        @foreach (var property in properties)
+        {
+            if (elements.Contains(property.Name))
+            {
+                continue;
+            }
+            else
+            {
+                elements.Add(property.Name);
+            }
+            <th>
+                @if (property.MappingType == ItemPropertyMappingType.Property)
+                {
+                    if (property.InnerType != null && !elements.Contains(property.Name + "Id"))
+                    {
+                        elements.Add(property.Name + "Id");
+                    }
+                    @Html.Localize(itemName + "." + property.Name)
+                }
+            </th>
+        }
+        <th></th>
+    </tr>
+    @Html.EmptyMessage(Model)
+    @foreach (var item in Model)
+    {
+        var id = item.GetId();
+        <tr>
+            @{
+                elements.Clear();
+            }
+
+            @foreach (var property in properties)
+            {
+                if (elements.Contains(property.Name))
+                {
+                    continue;
+                }
+                else
+                {
+                    elements.Add(property.Name);
+                }
+                <td>
+                    @if (property.MappingType == ItemPropertyMappingType.Property)
+                    {
+                        if (property.InnerType != null && !elements.Contains(property.Name + "Id"))
+                        {
+                            elements.Add(property.Name + "Id");
+                        }
+                        if (property.Type == ItemPropertyType.Class)
+                        {
+                            var value = item.GetPropertyValue(property.Name);
+                            var detailsId = item.GetPropertyValue(property.Name + "Id");
+                            if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(detailsId))
+                            {
+                                @Html.Modal(value, "Details", property.InnerType.Name, new RouteValueDictionary { { "Id", detailsId } }, id)
+                            }
+                        }
+                        else
+                        {
+                            @*@Html.DisplayFor(modelItem => property.Name)*@
+                            @*@Html.Display(property.Name)*@
+                            @item.GetPropertyValue(property.Name)
+                        }
+                    }
+                </td>
+            }
+            <td>
+                @foreach (var property in properties)
+                {
+                    if (property.MappingType != ItemPropertyMappingType.Property && property.InnerType != null)
+                    {
+                        @Html.LocalizedStyledActionLink(property.Name, "List", property.InnerType.Name, new RouteValueDictionary { { itemName + "Id", id } })
+                    }
+                }
+                @*@Html.LocalizedStyledActionLink("Edit", "Edit", new RouteValueDictionary { { "Id", id } }, "Edit")
+                    @Html.LocalizedStyledActionLink("Delete", "Delete", new RouteValueDictionary { { "Id", id } }, "Delete")*@
+                @if (allowEdit)
+                {
+                    @Html.EditLink(id)
+                }
+                @if (allowDelete)
+                {
+                    @Html.DeleteLink(id)
+                }
+            </td>
+        </tr>
+    }
+</table>

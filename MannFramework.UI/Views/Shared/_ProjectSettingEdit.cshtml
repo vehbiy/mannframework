@@ -1,0 +1,429 @@
+﻿@model ProjectSetting
+
+<div class="form-horizontal">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        <div class="col-md-2">
+            @*@Html.Label(Html.Localize("ProjectSetting.Project"), new { @class = "control-label" })*@
+            @Html.LocalizedStyledLabel("ProjectSetting.Project")
+        </div>
+        <div class="col-md-4">
+            @Html.StyledDropDownList("ProjectId", Html.GetItems<Project>(), Model.ProjectId, disabled: true)
+            @Html.ValidationMessageFor(model => model.Project)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Entity")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.UseInsertTime")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.UseInsertTime)
+            @Html.ValidationMessageFor(model => model.UseInsertTime)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.UseDeleteTime")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.UseDeleteTime)
+            @Html.ValidationMessageFor(model => model.UseDeleteTime)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.EnableCaching")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.EnableCaching)
+            @Html.ValidationMessageFor(model => model.EnableCaching)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.BaseEntityName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.BaseEntityName)
+            @Html.ValidationMessageFor(model => model.BaseEntityName)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.LazyLoad")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.LazyLoad)
+            @Html.ValidationMessageFor(model => model.LazyLoad)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Provider")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.BaseProviderName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.BaseProviderName)
+            @Html.ValidationMessageFor(model => model.BaseProviderName)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateCreateEntity")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateCreateEntity)
+            @Html.ValidationMessageFor(model => model.GenerateCreateEntity)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateInitializeEntity")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateInitializeEntity)
+            @Html.ValidationMessageFor(model => model.GenerateInitializeEntity)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateGetCommonParameters")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateGetCommonParameters)
+            @Html.ValidationMessageFor(model => model.GenerateGetCommonParameters)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.UseAlias")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.UseAlias)
+            @Html.ValidationMessageFor(model => model.UseAlias)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Webapi")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.BaseWebApiModelName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.BaseWebApiModelName)
+            @Html.ValidationMessageFor(model => model.BaseWebApiModelName)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.BaseWebApiControllerName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.BaseWebApiControllerName)
+            @Html.ValidationMessageFor(model => model.BaseWebApiControllerName)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.WebApiControllerNamespaceSuffix")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.WebApiControllerNamespaceSuffix)
+            @Html.ValidationMessageFor(model => model.WebApiControllerNamespaceSuffix)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.WebApiModelNamespaceSuffix")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.WebApiModelNamespaceSuffix)
+            @Html.ValidationMessageFor(model => model.WebApiModelNamespaceSuffix)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateWebApiModel")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateWebApiModel)
+            @Html.ValidationMessageFor(model => model.GenerateWebApiModel)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateWebApiGetAll")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateWebApiGetAll)
+            @Html.ValidationMessageFor(model => model.GenerateWebApiGetAll)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateWebApiGetOne")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateWebApiGetOne)
+            @Html.ValidationMessageFor(model => model.GenerateWebApiGetOne)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateWebApiPost")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateWebApiPost)
+            @Html.ValidationMessageFor(model => model.GenerateWebApiPost)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateWebApiDelete")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateWebApiDelete)
+            @Html.ValidationMessageFor(model => model.GenerateWebApiDelete)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Mvc")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.BaseMvcModelName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.BaseMvcModelName)
+            @Html.ValidationMessageFor(model => model.BaseMvcModelName)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.BaseMvcControllerName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.BaseMvcControllerName)
+            @Html.ValidationMessageFor(model => model.BaseMvcControllerName)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AddSaveLinksToBottom")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AddSaveLinksToBottom)
+            @Html.ValidationMessageFor(model => model.AddSaveLinksToBottom)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AddSaveLinksToTop")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AddSaveLinksToTop)
+            @Html.ValidationMessageFor(model => model.AddSaveLinksToTop)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateMvcModel")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateMvcModel)
+            @Html.ValidationMessageFor(model => model.GenerateMvcModel)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Database")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateForeignKeyConstraint")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateForeignKeyConstraint)
+            @Html.ValidationMessageFor(model => model.GenerateForeignKeyConstraint)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.GenerateStoredProcedures")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.GenerateStoredProcedures)
+            @Html.ValidationMessageFor(model => model.GenerateStoredProcedures)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Framework")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.UseModeSettings")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.UseModeSettings)
+            @Html.ValidationMessageFor(model => model.UseModeSettings)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.CurrentMode")
+        </div>
+        <div class="col-md-4">
+            @Html.StyledDropDownListForEnum("CurrentMode", typeof(GarciaModeType), Model.CurrentMode)
+            @Html.ValidationMessageFor(model => model.CurrentMode)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.DisableCaching")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.DisableCaching)
+            @Html.ValidationMessageFor(model => model.DisableCaching)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.DefaultDatabaseConnectionType")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.DefaultDatabaseConnectionType)
+            @Html.ValidationMessageFor(model => model.DefaultDatabaseConnectionType)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.UpdateCacheAfterSave")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.UpdateCacheAfterSave)
+            @Html.ValidationMessageFor(model => model.UpdateCacheAfterSave)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.DefaultConnectionStringName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.DefaultConnectionStringName)
+            @Html.ValidationMessageFor(model => model.DefaultConnectionStringName)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.FrameworkType")
+        </div>
+        <div class="col-md-4">
+            @Html.StyledDropDownListForEnum("FrameworkType", typeof(FrameworkType), Model.FrameworkType)
+            @Html.ValidationMessageFor(model => model.FrameworkType)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.OrmType")
+        </div>
+        <div class="col-md-4">
+            @Html.StyledDropDownListForEnum("OrmType", typeof(OrmType), Model.OrmType)
+            @Html.ValidationMessageFor(model => model.OrmType)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Application")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.ApplePushCertificateLocation")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ApplePushCertificateLocation)
+            @Html.ValidationMessageFor(model => model.ApplePushCertificateLocation)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.ApplePushCertificatePassword")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ApplePushCertificatePassword)
+            @Html.ValidationMessageFor(model => model.ApplePushCertificatePassword)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.ApplePushForProduction")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ApplePushForProduction)
+            @Html.ValidationMessageFor(model => model.ApplePushForProduction)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AndroidPushToken")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AndroidPushToken)
+            @Html.ValidationMessageFor(model => model.AndroidPushToken)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.FileUploadPath")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.FileUploadPath)
+            @Html.ValidationMessageFor(model => model.FileUploadPath)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AWSAccessKey")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AWSAccessKey)
+            @Html.ValidationMessageFor(model => model.AWSAccessKey)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AWSSecret")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AWSSecret)
+            @Html.ValidationMessageFor(model => model.AWSSecret)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AWSBucketName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AWSBucketName)
+            @Html.ValidationMessageFor(model => model.AWSBucketName)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.UploadFilesToAWS")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.UploadFilesToAWS)
+            @Html.ValidationMessageFor(model => model.UploadFilesToAWS)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.UploadFilesToAzure")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.UploadFilesToAzure)
+            @Html.ValidationMessageFor(model => model.UploadFilesToAzure)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AzureConnectionString")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AzureConnectionString)
+            @Html.ValidationMessageFor(model => model.AzureConnectionString)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.AzureBlobContainer")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.AzureBlobContainer)
+            @Html.ValidationMessageFor(model => model.AzureBlobContainer)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.SocketIOUrl")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.SocketIOUrl)
+            @Html.ValidationMessageFor(model => model.SocketIOUrl)
+        </div>
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.SocketIOApiKey")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.SocketIOApiKey)
+            @Html.ValidationMessageFor(model => model.SocketIOApiKey)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>@Html.Localize("Development")</h4>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Localize("ProjectSetting.SourceControlType")
+        </div>
+        <div class="col-md-4">
+            @Html.StyledDropDownListForEnum("SourceControlType", typeof(SourceControlType), Model.SourceControlType)
+            @Html.ValidationMessageFor(model => model.SourceControlType)
+        </div>
+    </div>
+</div>

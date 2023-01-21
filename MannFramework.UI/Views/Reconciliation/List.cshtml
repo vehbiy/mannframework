@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Reconciliation>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@Html.IndexPageTitle("Reconciliation")</h5>
+                    <div class="ibox-tools">
+                        @Html.CreateLink()
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped">
+                        <tr>
+                            <th></th>
+                            <th>
+                                @Html.Localize("Reconciliation.Status")
+                            </th>
+                            <th>
+                                @Html.Localize("Reconciliation.Date")
+                            </th>
+                            <th>
+                                @Html.Localize("Reconciliation.DocumentId")
+                            </th>
+                            <th>
+                                @Html.Localize("Reconciliation.Notes")
+                            </th>
+                            <th>
+                                @Html.Localize("Reconciliation.Cashier")
+                            </th>
+                            <th>
+                                @Html.Localize("Reconciliation.Manager")
+                            </th>
+                            <th></th>
+                        </tr>
+                        @Html.EmptyMessage(Model)
+                        @foreach (var item in Model)
+                        {
+                            string cssClass = "fa fa-circle ";
+                            switch (item.Status)
+                            {
+                                case ReconciliationStatus.Approved:
+                                    cssClass += "text-navy";
+                                    break;
+                                case ReconciliationStatus.Denied:
+                                    cssClass += "text-danger";
+                                    break;
+                                case ReconciliationStatus.New:
+                                    cssClass += "text-success";
+                                    break;
+                                case ReconciliationStatus.Pending:
+                                    cssClass += "text-warning";
+                                    break;
+                            }
+                            <tr>
+                                <td>
+                                    <i class="@cssClass"></i>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DocumentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Notes)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cashier)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Manager)
+                                </td>
+                                <td>
+                                    @Html.EditLink(item.Id)
+                                    @Html.DeleteLink(item.Id)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

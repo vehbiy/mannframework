@@ -1,0 +1,79 @@
+{
+  "Name": "ConfigurationParameterValue",
+  "Properties": [
+    {
+      "Name": "MinValue",
+      "IsNullable": false,
+      "Type": "Double",
+      "MappingType": "Property",
+      "InnerType": null,
+      "MinLength": 0,
+      "MaxLength": 0,
+      "IsUnicode": false
+    },
+    {
+      "Name": "MaxValue",
+      "IsNullable": false,
+      "Type": "Double",
+      "MappingType": "Property",
+      "InnerType": null,
+      "MinLength": 0,
+      "MaxLength": 0,
+      "IsUnicode": false
+    },
+    {
+      "Name": "ConfigurationParameter",
+      "IsNullable": false,
+      "Type": "Class",
+      "MappingType": "0",
+      "MinLength": 0,
+      "MaxLength": 0,
+      "IsUnicode": false,
+      "InnerType": {
+        "Name": "ConfigurationParameter",
+        "Properties": [
+          {
+            "Name": "Name",
+            "IsNullable": false,
+            "Type": "String",
+            "MappingType": "Property",
+            "InnerType": null,
+            "MinLength": 4,
+            "MaxLength": 200,
+            "IsUnicode": true
+          }
+        ],
+        "ProjectName": "forfarm.Backend",
+        "IsEnum": false
+      }
+    },
+    {
+      "Name": "Module",
+      "IsNullable": false,
+      "Type": "Class",
+      "MappingType": "Property",
+      "MinLength": 0,
+      "MaxLength": 0,
+      "IsUnicode": false,
+      "InnerType": {
+        "Name": "Module",
+        "Properties": [
+          {
+            "Name": "Name",
+            "IsNullable": false,
+            "Type": "String",
+            "MappingType": "Property",
+            "InnerType": null,
+            "MinLength": 4,
+            "MaxLength": 200,
+            "IsUnicode": true
+          }
+        ],
+        "ProjectName": "forfarm.Backend",
+        "IsEnum": false
+      }
+    }
+  ],
+  "ProjectName": "forfarm.Backend",
+  "IsEnum": false
+}

@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "garcia",
+  "private": true,
+  "devDependencies": {
+  },
+  "dependencies": {
+    "socket.io": ">=0.9.6"
+  }
+}

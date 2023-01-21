@@ -1,0 +1,9 @@
+﻿@{
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+    bool? donotUseLayout = ViewContext.ViewBag.DonotUseLayout;
+
+    if (donotUseLayout.HasValue && donotUseLayout == true)
+    {
+        Layout = null;
+    }
+}

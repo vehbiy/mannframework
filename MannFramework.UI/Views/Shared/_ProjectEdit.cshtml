@@ -1,0 +1,23 @@
+﻿@model Project
+
+<div class="form-horizontal">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="form-group">
+        @Html.HiddenFor(model => model.Id)
+        <div class="col-md-2">
+            @Html.LocalizedStyledLabel("Project.ProjectName")
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="col-md-2">
+            @Html.LocalizedStyledLabel("Project.CodeGenerators")
+        </div>
+        <div class="col-md-4">
+            @Html.CheckBoxListForEnum(m => m.GeneratorTypes, Model.GeneratorTypes.ToSelectList())
+            @Html.ValidationMessageFor(model => model.GeneratorTypes)
+        </div>
+    </div>
+</div>

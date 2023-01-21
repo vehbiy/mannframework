@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Entity>
+
+@{
+    Item Item = null;
+    string itemName = null;
+
+    if (Model != null)
+    {
+        Item = CodeGeneratorHelper.GetItemFromType(Model.GetType().GetGenericArguments().FirstOrDefault());
+        itemName = Item.Name;
+    }
+}
+
+@*<div class="ibox-tools">
+    @Html.CreateLink(routeValues: new RouteValueDictionary { { "ProjectId", Request.QueryString["ProjectId"] } })
+</div>*@
+
+@Html.Partial("_List", Model)

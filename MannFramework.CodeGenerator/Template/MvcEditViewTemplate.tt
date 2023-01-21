@@ -1,0 +1,148 @@
+﻿<#@ template language="C#" HostSpecific="False" inherits="BaseTemplate"#>
+<#@ output extension=".cshtml" #>
+<#@ import namespace="MannFramework" #>
+<#@ import namespace="MannFramework.Application" #>
+<#@ parameter type="MannFramework.Application.Item" name="Item" #>
+<#@ parameter type="System.Int32" name="ItemInRowCount" #>
+<#@ parameter type="System.Boolean" name="GenerateMvcModel" #>
+<#@ parameter type="System.Boolean" name="UseAngular2" #>
+<#@ parameter type="System.Boolean" name="AddSaveLinksToTop" #>
+<#@ parameter type="System.Boolean" name="AddSaveLinksToBottom" #>
+<#@ include file="IncludeImports.t4" #>
+<#
+	string itemName = Item.Name;
+	string modelName = itemName;
+
+	if (GenerateMvcModel)
+	{
+		modelName += "Model";
+	}
+
+	string controllerName = itemName + "Controller";
+	string viewName = "Edit";
+	List<ItemProperty> properties = Item.Properties.Where(x => !x.MvcIgnore).ToList();
+	string actionLinks = GetActionLinks(properties);
+	properties = properties.Where(x => x.MappingType != ItemPropertyMappingType.List).ToList();
+	var groups = properties.GroupBy(x => x.EditGroupName);
+	string clientSideControllerName = UseAngular2 ? " ng-controller=\"" + itemName + "Ctrl\"" : "";
+	string clientSideInitFunction = UseAngular2 ? " ng-init=\"InitEdit()\"" : "";
+#>
+@model <#= modelName #>
+
+<div class="wrapper wrapper-content animated fadeInRight"<#= clientSideControllerName #>>
+    <div class="row"<#= clientSideInitFunction #>>
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+				@using (Html.BeginForm())
+				{
+					<div class="ibox-title">  
+						<h5>@Html.EditPageTitle("<#= itemName #>")</h5>
+<# if (AddSaveLinksToTop) { #>
+						<div class="ibox-tools">
+<# if (!string.IsNullOrEmpty(actionLinks)) { #>
+							<#= actionLinks #>
+<# } #>
+							@Html.SaveLinks()
+						</div>
+<# } #>
+					</div>
+					<div class="ibox-content">
+						@Html.AntiForgeryToken()
+							<div class="form-horizontal">
+								@Html.ValidationSummary(true)
+<# foreach(var group in groups) { int propertyCount = group.Count(); int counter = 0; #>
+<# if (!string.IsNullOrEmpty(group.Key)) { #>
+								<h4>@Html.Localize("<#= group.Key #>")</h4>
+<# } foreach (var property in group) { #>
+<# if (property.Name == "Id") { #>
+								@Html.HiddenFor(model => model.<#= property.Name #>)
+<#} #>
+<# else { #>
+<# if (counter % ItemInRowCount == 0) {#>
+								<div class="form-group">
+<# } #>
+									<div class="col-md-2">
+										@Html.LocalizedStyledLabel("<#= itemName #>.<#= property.Name #>")
+									</div>
+									<div class="<#= GetRowClass() #>">
+<# if (property.MappingType == ItemPropertyMappingType.Property) { #>
+<# if (property.InnerType == null) { #>
+										@Html.EditorFor(model => model.<#= property.Name #>)
+<#} else if (property.Type == ItemPropertyType.Enum){#>
+										@Html.StyledDropDownListForEnum("<#= property.Name #>", typeof(<#= property.InnerType.Name #>), Model.<#= property.Name #>)
+<#} else {#>
+										@Html.StyledDropDownList("<#= property.Name #>Id", Html.GetItems<<#= property.InnerType.Name #>>(), Model.<#= property.Name #>Id)
+<#} #>
+<#} else if (property.AssociationType == AssociationType.Aggregation){ #>
+										@Html.StyledListBox("<#= property.Name #>", Model.<#= property.Name #>.ToSelectList())
+<#} else {#>
+<#} #>
+<#} #>
+										@Html.ValidationMessageFor(model => model.<#= property.Name #>)
+									</div> <#= WriteComment("GetRowClass()") #>
+<# if (counter % ItemInRowCount == ItemInRowCount - 1 || counter == propertyCount - 1) {#>
+								</div> <#= WriteComment("form-group") #>
+<# } #>
+<# counter++; #>
+<#} #>
+<#} #>
+<# if (AddSaveLinksToBottom) { #>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<div class="col-md-offset-10 col-md-2">
+										@Html.SaveLinks()
+									</div>
+								</div> <#= WriteComment("form-group") #>
+<#} #>
+							</div> <#= WriteComment("form-horizontal") #>
+					</div> <#= WriteComment("ibox-content") #>
+				}
+            </div> <#= WriteComment("ibox") #>
+        </div> <#= WriteComment("col-lg-12") #>
+    </div> <#= WriteComment("row") #>
+ </div> <#= WriteComment("wrapper") #>
+
+<#+
+	protected string WriteComment(string comment)
+	{
+		bool debug = false;
+		return debug ? "<!--" + comment + "-->" : "";
+	}
+
+	protected string GetRowClass()
+	{
+		if (ItemInRowCount == 1)
+		{
+			return "col-md-10";
+		}
+		else if (ItemInRowCount == 2)
+		{
+			return "col-md-4";
+		}
+		else
+		{
+			return "";
+		}
+	}
+
+	protected string GetActionLinks(List<ItemProperty> properties)
+	{
+		var temp = properties.Where(x => x.MappingType != ItemPropertyMappingType.Property && x.AssociationType != AssociationType.Aggregation).ToList();
+		string actionLinks = "";
+		int counter = 0;
+
+		foreach(ItemProperty property in temp)
+		{
+			string actionLink = "@Html.LocalizedStyledActionLinkForExistingItem(\"" + property.Name + "\", \"List\", \"" + property.InnerType.Name + "\", new RouteValueDictionary () { { \"" + Item.Name + "Id\", Model.Id } })";
+			actionLinks += actionLink;
+
+			if (counter != temp.Count - 1)
+			{
+				actionLinks += "\n\t\t\t\t\t\t\t";
+				counter++;
+			}
+		}
+
+		return actionLinks;
+	}
+#>

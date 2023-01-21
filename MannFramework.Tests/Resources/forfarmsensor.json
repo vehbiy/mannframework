@@ -1,0 +1,43 @@
+{
+  "Name": "SensorData",
+  "Properties": [
+    {
+      "Name": "Data",
+      "IsNullable": false,
+      "Type": "Double",
+      "MappingType": "Property",
+      "InnerType": null,
+      "MinLength": 0,
+      "MaxLength": 0,
+      "IsUnicode": false
+    },
+    {
+      "Name": "Sensor",
+      "IsNullable": false,
+      "Type": "8",
+      "MappingType": "0",
+      "MinLength": 0,
+      "MaxLength": 0,
+      "IsUnicode": false,
+      "InnerType": {
+        "Name": "Sensor",
+        "Properties": [
+          {
+            "Name": "Name",
+            "IsNullable": false,
+            "Type": "String",
+            "MappingType": "Property",
+            "InnerType": null,
+            "MinLength": 4,
+            "MaxLength": 200,
+            "IsUnicode": true
+          }
+        ],
+        "ProjectName": "forfarm.Backend",
+        "IsEnum": false
+      }
+    }
+  ],
+  "ProjectName": "forfarm.Backend",
+  "IsEnum": false
+}

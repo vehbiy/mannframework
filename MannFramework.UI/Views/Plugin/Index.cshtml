@@ -1,0 +1,11 @@
+﻿@model Dictionary<string, List<string>>
+
+@foreach (var item in Model)
+{
+    @item.Key<br />
+    foreach (var route in item.Value)
+    {
+        @route<br />
+    }
+    <br />
+}

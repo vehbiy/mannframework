@@ -1,0 +1,87 @@
+@model IEnumerable<ItemProperty>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@ViewBag.PageTitle</h5>
+                    <div class="ibox-tools">
+                        @Html.LocalizedStyledActionLink("Edit Item", "Edit", "Item", new RouteValueDictionary { { "Id", Request.QueryString["ItemId"] } }, "ExtraLinks")
+                        @Html.LocalizedStyledActionLink("Project Items", "List", "Item", new RouteValueDictionary { { "ProjectId", UIStateManager.Instance.ProjectId } }, "ExtraLinks")
+                        @Html.LocalizedStyledActionLink("View Code", "Code", "Item", new RouteValueDictionary { { "Id", Request.QueryString["ItemId"] } }, "ExtraLinks")
+                        @Html.LocalizedStyledActionLink("Create", "Edit", "Create")
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.Name")
+                            </th>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.IsNullable")
+                            </th>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.Type")
+                            </th>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.MappingType")
+                            </th>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.AssociationType")
+                            </th>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.InnerType")
+                            </th>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.MinLength")
+                            </th>
+                            <th>
+                                @Html.LocalizedStyledLabel("ItemProperty.MaxLength")
+                            </th>
+                            <th></th>
+                        </tr>
+                        @Html.EmptyMessage(Model)
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsNullable)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MappingType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssociationType)
+                                </td>
+                                <td>
+                                    @Html.Modal(item.InnerType, "Details", "Item", new RouteValueDictionary { { "Id", item.InnerTypeId } }, item.InnerTypeId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MinLength)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaxLength)
+                                </td>
+                                <td>
+                                    @*@Html.LocalizedStyledActionLink("Edit", "Edit", new RouteValueDictionary { { "Id", item.Id } }, "Edit")*@
+                                    @*@Html.LocalizedStyledActionLink("Delete", "Delete", new RouteValueDictionary { { "Id", item.Id } }, "Delete")*@
+                                    @Html.EditLink(item.Id)
+                                    @Html.DeleteLink(item.Id)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

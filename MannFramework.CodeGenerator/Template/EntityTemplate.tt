@@ -1,0 +1,231 @@
+﻿<#@ template language="C#" inherits="BaseTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="MannFramework" #>
+<#@ import namespace="MannFramework.CodeGenerator" #>
+<#@ import namespace="MannFramework.Application" #>
+<#@ parameter type="MannFramework.Application.Item" name="Item" #>
+<#@ parameter type="System.String" name="BaseClass" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Boolean" name="LazyLoad" #>
+<#@ include file="IncludeWarning.t4" #>
+<#@ include file="IncludeUsings.t4" #>
+<#
+	List<string> fields = new List<string>();
+#>
+
+namespace <#= Namespace #>
+{
+<#if(Item.IsEnum) { #>
+	public enum <#= Item.Name #>
+	{
+	}
+<#} #>
+<#else { #>
+	public partial class <#= Item.Name #> : <#= BaseClass #>
+	{
+<# 
+		foreach (var property in Item.Properties)
+		{
+			string innerTypeName = this.generator.GetInnerTypeName(property);
+			string accessor = property.AccessorType.ToString().ToLowerInvariant();
+			string attributes = AppendAttributes(property);
+			// string accessor = "public";
+#>
+<#if(LazyLoad && property.IsLazyLoad) { #>
+<#if(property.MappingType == ItemPropertyMappingType.Property) { #>
+<#		AppendAttributes(property); #>
+		<#= accessor #> <#= innerTypeName #> <#= property.Name #> { get { return Get(_<#= property.Name.ToPascalCase() #>Id, ref _<#= property.Name.ToPascalCase() #>); } set { Set(ref _<#= property.Name.ToPascalCase() #>, ref _<#= property.Name.ToPascalCase() #>Id, value); } }
+<# if(!Item.HasProperty(property.Name.ToCamelCase() + "Id")) { #>
+		[NotSelected]
+        [NotSaved]
+		public int? <#= property.Name.ToCamelCase() #>Id { get { return _<#= property.Name.ToPascalCase() #>Id; } set { _<#= property.Name.ToPascalCase() #>Id = value; } }
+<#} #>
+<#} #>
+<#else { #>
+		<#= attributes #><#= accessor #> <#= innerTypeName #> <#= property.Name #> { get { return Get(ref _<#= property.Name.ToPascalCase() #>); } set { Set(ref _<#= property.Name.ToPascalCase() #>, value); } }
+<#} #><#} #>
+<#else if (!string.IsNullOrEmpty(property.FieldName)){ #>
+		<#= attributes #><#= accessor #> <#= innerTypeName #> <#= property.Name #> { get { return <#= property.FieldName #>; } set { <#= property.FieldName #> = value; } }
+<#} #>
+<#else { #>
+		<#= attributes #><#= accessor #> <#= innerTypeName #> <#= property.Name #> { get; set; }
+<#} #>
+<# 
+		} 
+#>
+
+		#region Lazy load
+<#
+		foreach (var property in Item.Properties)
+		{
+			string innerTypeName = this.generator.GetInnerTypeName(property); 
+			
+			if (!String.IsNullOrEmpty(property.FieldName) && !fields.Contains(property.FieldName)) 
+			{
+				fields.Add(property.FieldName); #>
+		private <#= innerTypeName #> <#= property.FieldName #>;
+<#} #>
+<#if(LazyLoad && property.IsLazyLoad && !fields.Contains("_" + property.Name.ToPascalCase())) { fields.Add("_" + property.Name.ToPascalCase()); #>
+		private <#= innerTypeName #> _<#= property.Name.ToPascalCase() #>;
+<#if(property.MappingType == ItemPropertyMappingType.Property && !fields.Contains("_" + property.Name.ToPascalCase() + "Id")) { fields.Add("_" + property.Name.ToPascalCase() + "Id"); #>
+		private int? _<#= property.Name.ToPascalCase() #>Id;
+<#} #>
+<#else { #>
+<#} #><#} #>
+<#else { #>
+<#} #>
+<# 
+		}
+#>
+		#endregion
+<#
+#>
+
+		public <#= Item.Name #>()
+		{
+<# 
+			foreach (var property in Item.Properties)
+			{
+				string innerTypeName = this.generator.GetInnerTypeName(property);
+				
+				switch (property.MappingType)
+                {
+                    case ItemPropertyMappingType.Property:
+                        break;
+                    case ItemPropertyMappingType.List: 
+#>
+			this.<#= property.Name #> = new <#= innerTypeName #>();
+<#						break;
+                    case ItemPropertyMappingType.Array:
+                        // TODO
+                        break;
+                }
+			} 
+#>
+		}
+<# 
+	List<ItemProperty> toStringProperties = Item.Properties.Where(x => x.AppendToToString).ToList();
+	
+	if (toStringProperties.Count != 0)
+	{
+#>
+
+		public override string ToString()
+		{
+<#
+			if (toStringProperties.Count == 1)
+			{
+				string builder = "this." + toStringProperties[0].Name;
+
+				if (toStringProperties[0].Type != ItemPropertyType.String)
+				{
+					builder += ".ToString()";
+				}
+
+#>
+			return <#= builder #>;
+		}
+<#
+			}
+			else
+			{
+				int index = 0;
+				string builder = "new MannFrameworkStringBuilder(' ', ";
+
+				foreach(var property in toStringProperties)
+				{
+					builder += "this.";
+					builder += property.Name;
+
+					if (property.Type != ItemPropertyType.String)
+					{
+						builder += ".ToString()";
+					}
+
+					if (index != toStringProperties.Count - 1)
+					{
+						builder += ", ";
+					}
+					else
+					{
+						builder += ").ToString()";
+					}
+
+					index++;
+				}
+#>
+			return <#= builder #>;
+		}
+<#
+		}
+	}
+#>
+	}
+<#} #>
+}
+
+<#+
+	protected override Generator CreateGenerator()
+	{
+		return new EntityGenerator();
+	}
+
+	protected string AppendAttributes(ItemProperty property)
+	{
+		string attributes = "";
+
+		if (property.NotSaved)
+		{
+			attributes += "[NotSaved]\n\t\t";
+		}
+
+		if (property.NotSelected)
+		{
+			attributes += "[NotSelected]\n\t\t";
+		}
+
+		if (property.MvcIgnore)
+		{
+			attributes += "[MvcIgnore]\n\t\t";
+		}
+
+		if (property.MvcListIgnore)
+		{
+			attributes += "[MvcListIgnore]\n\t\t";
+		}
+
+		if (!property.IsNullable)
+		{
+			attributes += "[Required]\n\t\t";
+		}
+
+		switch (property.Type)
+		{
+			case ItemPropertyType.String:
+				if (property.MaxLength != 0)
+				{
+					attributes += "[StringLength(" + property.MaxLength.ToString() + ", MinimumLength = " + property.MinLength.ToString() + ")]\n\t\t";
+				}
+				break;
+			case ItemPropertyType.Double:
+			case ItemPropertyType.Float:
+			case ItemPropertyType.Decimal:
+				if (property.MinLength != 0 && property.MaxLength != 0)
+				{
+					attributes += "[Range(" + property.MinLength.ToString() + ", " + property.MaxLength.ToString() + ")]\n\t\t";
+				}
+				break;
+		}
+
+		if (!string.IsNullOrEmpty(property.RegularExpressionValidation))
+		{
+			attributes += "[RegularExpression(\"@" + property.RegularExpressionValidation + "\")]\n\t\t";
+		}
+
+		// return attributes.TrimEnd('\n');
+		return attributes;
+	}
+#>

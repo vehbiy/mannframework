@@ -1,0 +1,108 @@
+﻿<#@ template language="C#" inherits="BaseTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="MannFramework" #>
+<#@ import namespace="MannFramework.Application" #>
+<#@ parameter type="MannFramework.Application.Item" name="Item" #>
+<#@ parameter type="System.String" name="BaseClass" #>
+<#@ parameter type="System.String" name="WebApiModelNamespaceSuffix" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ include file="IncludeWarning.t4" #>
+<#@ include file="IncludeUsings.t4" #>
+<#
+	List<ItemProperty> properties = Item.Properties.Where(x => x.AccessorType == AccessorType.Public).ToList();
+#>
+using <#= Item.ProjectName #>.BL;
+
+namespace <#= Namespace #>
+{
+	public partial class <#= Item.Name #>Model : <#= BaseClass #><<#= Item.Name #>>
+	{
+<# 
+		foreach (var property in properties)
+		{
+			string innerTypeName = this.generator.GetInnerTypeName(property); 
+#>
+		public <#= innerTypeName #> <#= property.Name #> { get; set; }
+<# 
+		} 
+#>
+
+		public <#= Item.Name #>Model()
+		{
+<# 
+			foreach (var property in properties)
+			{
+				string innerTypeName = this.generator.GetInnerTypeName(property);
+				
+				switch (property.MappingType)
+                {
+                    case ItemPropertyMappingType.Property:
+                        break;
+                    case ItemPropertyMappingType.List: 
+#>
+			this.<#= property.Name #> = new <#= innerTypeName #> ();
+<#						break;
+                    case ItemPropertyMappingType.Array:
+                        // TODO
+                        break;
+                }
+			} 
+#>
+		}
+
+		public <#= Item.Name #>Model(<#= Item.Name #> item) : base(item)
+		{
+<# 
+			foreach (var property in properties)
+			{
+				string innerTypeName = this.generator.GetInnerTypeName(property);
+				
+				switch (property.MappingType)
+                {
+                    case ItemPropertyMappingType.Property:
+			if (property.InnerType != null && property.Type != ItemPropertyType.Enum)
+			{
+#>
+			this.<#= property.Name #> = Model.GetModel<<#= property.InnerType.Name #>, <#= property.InnerType.Name #>Model>(item.<#= property.Name #>);
+<#
+			}
+			else
+			{
+#>
+			this.<#= property.Name #> = item.<#= property.Name #>;
+<#
+			}
+						break;
+                    case ItemPropertyMappingType.List: 
+			if (property.InnerType != null && property.Type != ItemPropertyType.Enum)
+			{
+#>
+			this.<#= property.Name #> = Model.GetModels<<#= property.InnerType.Name #>, <#= property.InnerType.Name #>Model>(item.<#= property.Name #>);
+<#
+			}
+			else
+			{
+#>
+			this.<#= property.Name #> = item.<#= property.Name #>;
+<#
+			}
+						break;
+                    case ItemPropertyMappingType.Array:
+                        // TODO
+                        break;
+                }
+			} 
+#>
+		}
+	}
+}
+
+<#+
+	protected override Generator CreateGenerator()
+	{
+		return new WebApiModelGenerator();
+	}
+#>

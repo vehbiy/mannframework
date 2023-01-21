@@ -1,0 +1,93 @@
+﻿@using Newtonsoft.Json
+@model Project
+@{
+    ProjectSetting setting = Model.GetProjectSetting();
+}
+
+<div class="wrapper wrapper-content animated fadeIn" ng-controller="ProjectCtrl">
+    <div class="row" ng-init="InitEdit()">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#information">@Html.Localize("Project.BasicInformation")</a></li>
+                        <li ng-class="model.Id === 0 ? 'disabled' : ''"><a data-toggle="{{model.Id == 0 ? null : 'tab'}}" href="#settings">@Html.Localize("Project.Settings")</a></li>
+                        <li ng-class="model.Id === 0 ? 'disabled' : ''"><a data-toggle="{{model.Id == 0 ? null : 'tab'}}" href="#subprojects">@Html.Localize("Project.SubProjects")</a></li>
+                        <li ng-class="model.Id === 0 ? 'disabled' : ''"><a data-toggle="{{model.Id == 0 ? null : 'tab'}}" href="#mappings">@Html.Localize("Project.Mappings")</a></li>
+                        <li ng-class="model.Id === 0 ? 'disabled' : ''"><a data-toggle="{{model.Id == 0 ? null : 'tab'}}" href="#groups">@Html.Localize("Project.Groups")</a></li>
+                        @*<li><a data-toggle="tab" href="#subprojects">@Html.Localize("Project.SubProjects")</a></li>
+        <li><a data-toggle="tab" href="#mappings">@Html.Localize("Project.Mappings")</a></li>*@
+                    </ul>
+                    <div class="tab-content">
+                        <div id="information" class="tab-pane active">
+                            <div class="panel-body">
+                                @using (Html.BeginForm("Edit", "Project"))
+                                {
+                                    <div class="ibox-tools">
+                                        @Html.SaveLink()
+                                    </div>
+
+                                    @Html.Partial("_ProjectEdit", Model)
+                                }
+                            </div>
+                        </div>
+                        <div id="settings" class="tab-pane">
+                            <div class="panel-body">
+                                @using (Html.BeginForm("Edit", "ProjectSetting", new RouteValueDictionary { { "Id", setting.Id } }))
+                                {
+                                    <div class="ibox-tools">
+                                        @Html.SaveLink(htmlAttributes: new Dictionary<string, object> { { "ng-disabled", "model.Id==0" } })
+                                    </div>
+
+                                    @Html.Partial("_ProjectSettingEdit", setting)
+                                }
+                            </div>
+                        </div>
+                        <div id="subprojects" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="ibox-tools">
+                                    @Html.CreateLink(controllerName: "SubProject", routeValues: new RouteValueDictionary { { "ProjectId", Model.Id } })
+                                </div>
+                                @Html.Action("ListWithoutLayout", "SubProject", new RouteValueDictionary { { "ProjectId", Model.Id } })
+                            </div>
+                        </div>
+                        <div id="mappings" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="ibox-tools">
+                                    @Html.CreateLink(controllerName: "ProjectMapping", routeValues: new RouteValueDictionary { { "ProjectId", Model.Id } })
+                                </div>
+                                @Html.Action("ListWithoutLayout", "ProjectMapping", new RouteValueDictionary { { "ProjectId", Model.Id } })
+                            </div>
+                        </div>
+                        <div id="groups" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="ibox-tools">
+                                    @Html.CreateLink(controllerName: "ProjectGroup", routeValues: new RouteValueDictionary { { "ProjectId", Model.Id } })
+                                </div>
+                                @Html.Action("ListWithoutLayout", "ProjectGroup", new RouteValueDictionary { { "ProjectId", Model.Id } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/scripts/jquery-3.1.1.min.js"></script>
+<script>
+    window.model = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, new JsonSerializerSettings{ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+
+    $(function () {
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+        //$('.nav-tabs a').click(function (e) {
+        //    console.log(window.location.hash);
+        //    $(this).tab('show');
+        //    var scrollmem = $('body').scrollTop();
+        //    window.location.hash = this.hash;
+        //    $('html,body').scrollTop(scrollmem);
+        //});
+    });
+</script>

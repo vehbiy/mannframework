@@ -1,0 +1,17 @@
+{
+  "Name": "ConfigurationParameter",
+  "Properties": [
+    {
+      "Name": "Name",
+      "IsNullable": false,
+      "Type": "String",
+      "MappingType": "Property",
+      "InnerType": null,
+      "MinLength": 10,
+      "MaxLength": 100,
+      "IsUnicode": true
+    }
+  ],
+  "ProjectName": "forfarm.Backend",
+  "IsEnum": false
+}

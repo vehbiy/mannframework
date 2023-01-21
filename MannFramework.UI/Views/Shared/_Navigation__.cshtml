@@ -1,0 +1,67 @@
+﻿@using MannFramework.Application.Manager
+@{
+    List<MenuItem> menuItems = MenuItemManager.GetMenuItems();
+}
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                @if (UIStateManager.Instance.Member != null)
+                {
+                    <div class="dropdown profile-element">
+                        <span>
+                            <img alt="image" class="img-circle" src="/Images/@UIStateManager.Instance.Member.ProfilePhoto" width="64">
+                        </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">@UIStateManager.Instance.Member.FullName</strong>
+                                </span>
+                                @if (UIStateManager.Instance.Project != null)
+                                {
+                                    <span class="text-muted text-xs block">@UIStateManager.Instance.Project.Name <b class="caret"></b></span>
+                                }
+                            </span>
+                        </a>
+                        @if (UIStateManager.Instance.Project != null)
+                        {
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                @*<li><a href="@Url.Action("List", "Project")">@Html.Localize("ChangeProject")</a></li>*@
+                                @foreach (Project project in UIStateManager.Instance.Member.GetProjects())
+                                {
+                                    <li><a href="@Url.Action("Select", "Project", new RouteValueDictionary() { { "id", project.Id } })">@project.Name</a></li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
+                }
+            </li>
+            <li class="@Html.IsSelected(action: "List")">
+                @if (UIStateManager.Instance.Project == null)
+                {
+                    <a href="@Url.Action("List", "Project")"><i class="fa fa-laptop"></i> <span class="nav-label">@Html.Localize("Menu.Projects")</span> </a>
+                }
+                else
+                {
+                    int projectId = UIStateManager.Instance.Project.Id;
+                    <a href="@Url.Action("List", "Project")"><i class="fa fa-book"></i> <span class="nav-label">@Html.Localize("Menu.Projects")</span> </a>
+                    <a href="@Url.Action("List", "Member")"><i class="fa fa-users"></i> <span class="nav-label">@Html.Localize("Menu.Members")</span> </a>
+                    <a href="@Url.Action("List", "Item", new { @ProjectId = projectId })"><i class="fa fa-edit"></i> <span class="nav-label">@Html.Localize("Menu.Items")</span> </a>
+                    <a href="@Url.Action("Edit", "ProjectSetting", new { @ProjectId = projectId })"><i class="fa fa-envelope"></i> <span class="nav-label">@Html.Localize("Menu.ProjectSettings")</span> </a>
+                    <a href="@Url.Action("List", "ProjectGroup", new { @ProjectId = projectId })"><i class="fa fa-group"></i> <span class="nav-label">@Html.Localize("Menu.ProjectGroups")</span> </a>
+                    <a href="@Url.Action("List", "SubProject", new { @ProjectId = projectId })"><i class="fa fa-subway"></i> <span class="nav-label">@Html.Localize("Menu.SubProjects")</span> </a>
+                    <a href="@Url.Action("Edit", "Member", new { @Id = UIStateManager.Instance.Member.Id })"><i class="fa fa-user"></i> <span class="nav-label">@Html.Localize("Menu.MyProfile")</span> </a>
+                    <a href="@Url.Action("List", "MemberProject", new { @MemberId = UIStateManager.Instance.Member.Id })"><i class="fa fa-window-restore"></i> <span class="nav-label">@Html.Localize("Menu.MyProjects")</span> </a>
+                    <a href="@Url.Action("List", "ProjectMapping", new { @MemberId = UIStateManager.Instance.Member.Id })"><i class="fa fa-pencil"></i> <span class="nav-label">@Html.Localize("Menu.MyProjectMappings")</span> </a>
+                    <a href="@Url.Action("List", "MenuItem")"><i class="fa fa-pencil"></i> <span class="nav-label">@Html.Localize("Menu.MenuItems")</span> </a>
+                    <a href="@Url.Action("List", "Icon")"><i class="fa fa-pencil"></i> <span class="nav-label">@Html.Localize("Menu.Icons")</span> </a>
+                    //fa-heart fa-film
+                }
+                <a href="@Url.Action("List", "Language", null)"><i class="fa fa-language"></i> <span class="nav-label">@Html.Localize("Menu.Languages")</span> </a>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+    <title>Garcia | @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/custom.min.css" rel="stylesheet" />
+    @Styles.Render("~/font-awesome/css")
+</head>
+<body ng-app="Garcia">
+    <!-- Wrapper-->
+    <input type="hidden" id="ApiUrl" name="ApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["ApiUrl"]" />
+    <div id="wrapper">
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>@ViewBag.Title</h2>
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <strong>@Html.LocalizedActionLink("Back", null, null, null, new { @href = "/Account/Back" })</strong>
+                        </li>
+                        @*<li class="active">
+                                <strong>@Html.LocalizedActionLink("Forward", null, null, null, new { @href = "/Account/Forward" })</strong>
+                            </li>*@
+                    </ol>
+                </div>
+            </div>
+
+            @*<div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>@ViewBag.Title</h5>
+                                    <div class="ibox-tools">
+                                        @Html.CreateLink()
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+            <!-- Main view  -->
+            @RenderBody()
+
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+
+        </div>
+        <!-- End page wrapper-->
+    </div>
+    <!-- End wrapper-->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @*<script src="~/Scripts/angular/App.min.js"></script>*@
+    <script src="~/Scripts/angular/App.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/plugins/metsiMenu")*@
+    @*@Scripts.Render("~/plugins/pace")*@
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

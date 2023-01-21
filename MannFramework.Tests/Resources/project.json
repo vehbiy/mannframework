@@ -1,0 +1,17 @@
+{
+  "Name": "Project",
+  "Properties": [
+    {
+      "Name": "Name",
+      "IsNullable": false,
+      "Type": "String",
+      "MappingType": "Property",
+      "InnerType": null,
+      "MinLength": 4,
+      "MaxLength": 200,
+      "IsUnicode": true
+    }
+  ],
+  "ProjectName": "Garcia",
+  "IsEnum": false
+}
