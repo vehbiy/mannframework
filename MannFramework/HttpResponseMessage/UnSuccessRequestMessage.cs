@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MannFramework.HttpResponseMessage
 {
-    class UnSuccessRequestMessage : GarciaHttpResponseMessage
+    class UnSuccessRequestMessage : MannFrameworkHttpResponseMessage
     {
         public UnSuccessRequestMessage()
         {

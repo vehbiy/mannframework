@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace MannFramework
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class GarciaMappingAttribute : Attribute
+    public class MannFrameworkMappingAttribute : Attribute
     {
         public MappingType MappingType { get; set; }
 
-        public GarciaMappingAttribute(MappingType MappingType)
+        public MannFrameworkMappingAttribute(MappingType MappingType)
         {
             this.MappingType = MappingType;
         }

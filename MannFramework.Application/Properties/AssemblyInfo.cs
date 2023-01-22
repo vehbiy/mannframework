@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MannFramework.Application")]
-[assembly: AssemblyDescription("Garcia Application Extensions")]
+[assembly: AssemblyDescription("MannFramework Application Extensions")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Garcia")]
+[assembly: AssemblyCompany("MannFramework")]
 [assembly: AssemblyProduct("MannFramework.Application")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

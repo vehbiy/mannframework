@@ -132,12 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\MembershipManagerTests.cs" />
-    <Compile Include="Garcia.Application\PushManagerTests.cs" />
-    <Compile Include="Garcia\ControllerTests.cs" />
-    <Compile Include="Garcia\EntityManagerTests.cs" />
-    <Compile Include="Garcia\ProjectTests.cs" />
+    <Compile Include="MannFramework.Application\PushManagerTests.cs" />
+    <Compile Include="MannFramework\ControllerTests.cs" />
+    <Compile Include="MannFramework\EntityManagerTests.cs" />
+    <Compile Include="MannFramework\ProjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Garcia\ProviderTests.cs" />
+    <Compile Include="MannFramework\ProviderTests.cs" />
     <Compile Include="TestClasses.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,10 +163,6 @@
     <ProjectReference Include="..\MannFramework.Application\MannFramework.Application.csproj">
       <Project>{b0775555-f466-4232-8b03-200123b0ffdf}</Project>
       <Name>MannFramework.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MannFramework.UI.BL\MannFramework.UI.BL.csproj">
-      <Project>{43b80282-c162-43b1-9a6f-ed099732a3c4}</Project>
-      <Name>MannFramework.UI.BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\MannFramework\MannFramework.csproj">
       <Project>{a779dee9-3bb0-46c1-af8d-4fb9b5474746}</Project>

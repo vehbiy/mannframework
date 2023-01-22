@@ -171,7 +171,7 @@ namespace MannFramework
         {
             char[] chars = Value.ToCharArray();
 
-            GarciaStringBuilder resultData = new GarciaStringBuilder();
+            MannFrameworkStringBuilder resultData = new MannFrameworkStringBuilder();
 
             foreach (char item in chars)
             {
@@ -318,7 +318,7 @@ namespace MannFramework
 
         public static string Localize(this string key)
         {
-            return GarciaLocalizationManager.Localize(key);
+            return MannFrameworkLocalizationManager.Localize(key);
         }
 
         public static List<T> ToList<T, L>(this List<Entity<L>> items)

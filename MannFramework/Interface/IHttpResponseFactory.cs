@@ -9,6 +9,6 @@ namespace MannFramework.Interface
 {
     public interface IHttpResponseFactory
     {
-        GarciaHttpResponseMessage GetResponseMessage(HttpStatusCode httpStatusCode);
+        MannFrameworkHttpResponseMessage GetResponseMessage(HttpStatusCode httpStatusCode);
     }
 }

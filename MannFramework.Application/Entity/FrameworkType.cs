@@ -9,6 +9,6 @@ namespace MannFramework.Application
     public enum FrameworkType
     {
         None = 0,
-        Garcia = 1
+        MannFramework = 1
     }
 }

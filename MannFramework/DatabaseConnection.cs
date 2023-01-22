@@ -42,7 +42,7 @@ namespace MannFramework
         public DatabaseConnection(string ConnectionStringName)
         {
             this.ConnectionString = this.GetConnectionString(ConnectionStringName);
-            this.CommandType = GarciaConfiguration.DefaultDatabaseConnectionType == DatabaseConnectionType.DynamicSql ? CommandType.Text : CommandType.StoredProcedure;
+            this.CommandType = MannFrameworkConfiguration.DefaultDatabaseConnectionType == DatabaseConnectionType.DynamicSql ? CommandType.Text : CommandType.StoredProcedure;
             this.Transactions = new Dictionary<Guid, DbTransaction>();
             this.CommandTimeout = 30;
         }

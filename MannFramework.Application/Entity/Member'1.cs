@@ -35,7 +35,7 @@ namespace MannFramework.Application
         {
             get
             {
-                return new GarciaStringBuilder(this.Name, " ", this.Surname).ToString();
+                return new MannFrameworkStringBuilder(this.Name, " ", this.Surname).ToString();
             }
         }
 

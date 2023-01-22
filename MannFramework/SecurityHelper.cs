@@ -23,13 +23,13 @@ namespace MannFramework
         {
             get
             {
-                return GarciaConfiguration.CurrentMode == GarciaModeType.Development;
+                return MannFrameworkConfiguration.CurrentMode == MannFrameworkModeType.Development;
             }
         }
 
         public static string GetSecureValue(string PlainValue)
         {
-            if (GarciaConfiguration.UseModeSettings && IsDevelopment)
+            if (MannFrameworkConfiguration.UseModeSettings && IsDevelopment)
             {
                 return PlainValue;
             }
@@ -39,7 +39,7 @@ namespace MannFramework
 
         public static string GetPlainValue(string SecureValue)
         {
-            if (GarciaConfiguration.UseModeSettings && IsDevelopment)
+            if (MannFrameworkConfiguration.UseModeSettings && IsDevelopment)
             {
                 return SecureValue;
             }

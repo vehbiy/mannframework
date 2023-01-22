@@ -15,7 +15,7 @@ namespace MannFramework.Tests.Application
                 BirthDate = DateTime.Today.AddYears(-20),
                 Name = "Name",
                 Surname = "Surname",
-                Email = Helpers.CreateKey(10) + "garciaframework.com"
+                Email = Helpers.CreateKey(10) + "MannFrameworkframework.com"
             };
 
             OperationResult<Member> result = MembershipManager.Instance.Register(member);

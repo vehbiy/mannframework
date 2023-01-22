@@ -9,7 +9,7 @@ namespace MannFramework.Application
     public enum OrmType
     {
         None = 0,
-        Garcia = 1,
+        MannFramework = 1,
         EntityFramework = 2,
         Dapper = 3
     }

@@ -17,7 +17,7 @@ namespace MannFramework
         }
 
         protected SqlDatabaseConnection()
-            : this(GarciaConfiguration.DefaultConnectionStringName)
+            : this(MannFrameworkConfiguration.DefaultConnectionStringName)
         {
 
         }

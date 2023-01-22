@@ -18,7 +18,7 @@ using Owin;
 /// </summary>
 namespace MannFramework.Application
 {
-    public abstract class GarciaApiStartup
+    public abstract class MannFrameworkApiStartup
     {
         protected abstract void Register(HttpConfiguration configuration);
 
@@ -93,7 +93,7 @@ namespace MannFramework.Application
             }
             else
             {
-                string message = !string.IsNullOrEmpty(loginResult.LocalizedValidationMessage) ? loginResult.LocalizedValidationMessage : GarciaLocalizationManager.Localize("InvalidCredentials");
+                string message = !string.IsNullOrEmpty(loginResult.LocalizedValidationMessage) ? loginResult.LocalizedValidationMessage : MannFrameworkLocalizationManager.Localize("InvalidCredentials");
                 context.SetError("invalid_grant", message);
             }
 

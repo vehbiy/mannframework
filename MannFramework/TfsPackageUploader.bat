@@ -1,3 +1,3 @@
 del *.nupkg
 nuget pack MannFramework.csproj
-nuget push -Source "Garcia" -ApiKey VSTS *.nupkg
+nuget push -Source "MannFramework" -ApiKey VSTS *.nupkg

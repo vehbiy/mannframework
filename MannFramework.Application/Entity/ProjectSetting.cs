@@ -1,5 +1,5 @@
 /*
-	This file was generated automatically by Garcia Framework. 
+	This file was generated automatically by MannFramework Framework. 
 	Do not edit manually. 
 	Add a new partial class with the same name if you want to add extra functionality.
 */
@@ -81,7 +81,7 @@ namespace MannFramework.Application
         public bool UseModeSettings { get; set; }
         [MvcListIgnore]
         [Required]
-        public GarciaModeType CurrentMode { get; set; }
+        public MannFrameworkModeType CurrentMode { get; set; }
         [MvcListIgnore]
         [Required]
         public bool DisableCaching { get; set; }

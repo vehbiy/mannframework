@@ -19,7 +19,7 @@ namespace MannFramework.Application
     {
         public static FileUploadResult UploadVideo(MultipartFormDataStreamProvider StreamProvider, string Prefix = "")
         {
-            string uploadPath = GarciaApplicationConfiguration.FileUploadPath;
+            string uploadPath = MannFrameworkApplicationConfiguration.FileUploadPath;
             var data = StreamProvider.FileData;
             string video = string.Empty;
             string image = string.Empty;
@@ -53,14 +53,14 @@ namespace MannFramework.Application
                 }
             }
 
-            string awsBucketName = GarciaApplicationConfiguration.AWSBucketName;
-            bool uploadFilesToAWS = GarciaApplicationConfiguration.UploadFilesToAWS;
-            bool uploadFilesToAzure = GarciaApplicationConfiguration.UploadFilesToAzure;
+            string awsBucketName = MannFrameworkApplicationConfiguration.AWSBucketName;
+            bool uploadFilesToAWS = MannFrameworkApplicationConfiguration.UploadFilesToAWS;
+            bool uploadFilesToAzure = MannFrameworkApplicationConfiguration.UploadFilesToAzure;
 
             if (uploadFilesToAWS)
             {
-                string awsKey = GarciaApplicationConfiguration.AWSAccessKey;
-                string awsSecret = GarciaApplicationConfiguration.AWSSecret;
+                string awsKey = MannFrameworkApplicationConfiguration.AWSAccessKey;
+                string awsSecret = MannFrameworkApplicationConfiguration.AWSSecret;
                 AmazonS3Client client = new AmazonS3Client(awsKey, awsSecret);
                 TransferUtility transferUtility = new TransferUtility(client);
 
@@ -78,10 +78,10 @@ namespace MannFramework.Application
             if (uploadFilesToAzure)
             {
                 //string storageConnectionString = CloudConfigurationManager.GetSetting("AzureConnectionString");
-                string storageConnectionString = GarciaApplicationConfiguration.AzureConnectionString;
+                string storageConnectionString = MannFrameworkApplicationConfiguration.AzureConnectionString;
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                string azureBlobContainer = GarciaApplicationConfiguration.AzureBlobContainer;
+                string azureBlobContainer = MannFrameworkApplicationConfiguration.AzureBlobContainer;
                 CloudBlobContainer container = blobClient.GetContainerReference(azureBlobContainer);
                 //container.CreateIfNotExists();
 

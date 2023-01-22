@@ -11,9 +11,9 @@ namespace MannFramework.Factory
 {
     public class HttpResponseFactory : IHttpResponseFactory
     {
-        public GarciaHttpResponseMessage GetResponseMessage(HttpStatusCode httpStatusCode)
+        public MannFrameworkHttpResponseMessage GetResponseMessage(HttpStatusCode httpStatusCode)
         {
-            GarciaHttpResponseMessage response;
+            MannFrameworkHttpResponseMessage response;
 
             switch (httpStatusCode)
             {
@@ -27,7 +27,7 @@ namespace MannFramework.Factory
                     response = new NoContent();
                     break;
                 default:
-                    response = new GarciaHttpResponseMessage();
+                    response = new MannFrameworkHttpResponseMessage();
                     // TODO: find a bettor one
                     break;
             }

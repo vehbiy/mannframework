@@ -16,23 +16,23 @@ namespace MannFramework
             return item;
         }
 
-        public static GarciaHttpResponseMessage<K> GetModel<T, K>(L Id)
+        public static MannFrameworkHttpResponseMessage<K> GetModel<T, K>(L Id)
             where T : Entity<L>
             where K : BaseModel
         {
             T item = GetItem<T>(Id);
             K model = Model.GetModel<T, K>(item);
-            GarciaHttpResponseMessage<K> response = new GarciaHttpResponseMessage<K>(model);
+            MannFrameworkHttpResponseMessage<K> response = new MannFrameworkHttpResponseMessage<K>(model);
             return response;
         }
 
-        public static GarciaHttpResponseMessage<List<K>> GetModels<T, K>()
+        public static MannFrameworkHttpResponseMessage<List<K>> GetModels<T, K>()
             where T : Entity<L>
             where K : BaseModel
         {
             List<T> items = EntityManager<L>.Instance.GetItems<T>();
             List<K> models = Model.GetModels<T, K>(items);
-            return new GarciaHttpResponseMessage<List<K>>(models);
+            return new MannFrameworkHttpResponseMessage<List<K>>(models);
         }
 
         //public static CustomHttpResponseMessage<K> GetModel<T, K>(L Id)

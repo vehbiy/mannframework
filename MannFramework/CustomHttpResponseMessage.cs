@@ -8,19 +8,19 @@ using System.Web.Http.ModelBinding;
 
 namespace MannFramework
 {
-    public class GarciaHttpResponseMessage
+    public class MannFrameworkHttpResponseMessage
     {
         public bool Success { get; set; }
         public HttpStatusCode HttpStatusCode { get; set; }
         public List<string> ErrorMessages { get; set; }
         public object Data { get; set; }
 
-        public GarciaHttpResponseMessage()
+        public MannFrameworkHttpResponseMessage()
         {
             this.ErrorMessages = new List<string>();
         }
 
-        public GarciaHttpResponseMessage(HttpStatusCode httpStatusCode, bool? success = false) : this()
+        public MannFrameworkHttpResponseMessage(HttpStatusCode httpStatusCode, bool? success = false) : this()
         {
             this.HttpStatusCode = httpStatusCode;
 
@@ -30,7 +30,7 @@ namespace MannFramework
             }
         }
 
-        public GarciaHttpResponseMessage(HttpStatusCode httpStatusCode, bool? success, string errorMessage = "") : this(httpStatusCode, success)
+        public MannFrameworkHttpResponseMessage(HttpStatusCode httpStatusCode, bool? success, string errorMessage = "") : this(httpStatusCode, success)
         {
             if (this.Success == false)
             {
@@ -43,12 +43,12 @@ namespace MannFramework
             }
         }
 
-        public GarciaHttpResponseMessage(HttpStatusCode httpStatusCode, Exception exception) : this(httpStatusCode, false)
+        public MannFrameworkHttpResponseMessage(HttpStatusCode httpStatusCode, Exception exception) : this(httpStatusCode, false)
         {
             this.ErrorMessages.Add(exception.Message);
         }
 
-        public GarciaHttpResponseMessage(ModelStateDictionary modelState) : this()
+        public MannFrameworkHttpResponseMessage(ModelStateDictionary modelState) : this()
         {
             this.HttpStatusCode = HttpStatusCode.BadRequest;
             this.Success = false;
@@ -62,7 +62,7 @@ namespace MannFramework
             }
         }
 
-        public GarciaHttpResponseMessage(OperationResult result) : this()
+        public MannFrameworkHttpResponseMessage(OperationResult result) : this()
         {
             this.Success = result.Success;
 
@@ -81,7 +81,7 @@ namespace MannFramework
         }
     }
 
-    public class GarciaHttpResponseMessage<T> : GarciaHttpResponseMessage
+    public class MannFrameworkHttpResponseMessage<T> : MannFrameworkHttpResponseMessage
     {
         private T data;
         new public T Data
@@ -97,12 +97,12 @@ namespace MannFramework
             }
         }
 
-        public GarciaHttpResponseMessage() : base()
+        public MannFrameworkHttpResponseMessage() : base()
         {
 
         }
 
-        public GarciaHttpResponseMessage(T data)
+        public MannFrameworkHttpResponseMessage(T data)
         {
             if (data != null)
             {
@@ -117,12 +117,12 @@ namespace MannFramework
             }
         }
 
-        public GarciaHttpResponseMessage(HttpStatusCode httpStatusCode, bool? success = false) : base(httpStatusCode, success)
+        public MannFrameworkHttpResponseMessage(HttpStatusCode httpStatusCode, bool? success = false) : base(httpStatusCode, success)
         {
 
         }
 
-        public GarciaHttpResponseMessage(OperationResult result) : base(result)
+        public MannFrameworkHttpResponseMessage(OperationResult result) : base(result)
         {
         }
     }

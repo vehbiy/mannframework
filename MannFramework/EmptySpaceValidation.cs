@@ -12,7 +12,7 @@ namespace MannFramework
     {
         public WhitespaceValidation() : base(@"^\S*$")
         {
-            ErrorMessage = GarciaLocalizationManager.Localize("Whitespacenotallowed");
+            ErrorMessage = MannFrameworkLocalizationManager.Localize("Whitespacenotallowed");
         }
     }
 }

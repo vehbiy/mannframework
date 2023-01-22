@@ -12,7 +12,7 @@ namespace MannFramework
         {
             // TODO: log
 
-            if (GarciaConfiguration.CurrentMode == GarciaModeType.Development)
+            if (MannFrameworkConfiguration.CurrentMode == MannFrameworkModeType.Development)
             {
                 throw Exception;
             }

@@ -25,12 +25,12 @@ namespace MannFramework.Application.Manager
 
         private static void CreateAppleBroker()
         {
-            string applePushCertificateLocation = GarciaApplicationConfiguration.ApplePushCertificateLocation;
+            string applePushCertificateLocation = MannFrameworkApplicationConfiguration.ApplePushCertificateLocation;
 
             if (!string.IsNullOrEmpty(applePushCertificateLocation))
             {
-                string applePushCertificatePassword = GarciaApplicationConfiguration.ApplePushCertificatePassword;
-                bool applePushForProduction = GarciaApplicationConfiguration.ApplePushForProduction;
+                string applePushCertificatePassword = MannFrameworkApplicationConfiguration.ApplePushCertificatePassword;
+                bool applePushForProduction = MannFrameworkApplicationConfiguration.ApplePushForProduction;
                 byte[] appleCert = File.ReadAllBytes(applePushCertificateLocation);
                 ApnsConfiguration appleConfig = new ApnsConfiguration(applePushForProduction ? ApnsConfiguration.ApnsServerEnvironment.Production : ApnsConfiguration.ApnsServerEnvironment.Sandbox, appleCert, applePushCertificatePassword);
                 AppleBroker = new ApnsServiceBroker(appleConfig);
@@ -42,7 +42,7 @@ namespace MannFramework.Application.Manager
 
         private static void CreateAndroidBroker()
         {
-            string androidPushToken = GarciaApplicationConfiguration.AndroidPushToken;
+            string androidPushToken = MannFrameworkApplicationConfiguration.AndroidPushToken;
 
             if (!string.IsNullOrEmpty(androidPushToken))
             {
@@ -206,8 +206,8 @@ namespace MannFramework.Application.Manager
                 id = Guid.NewGuid().ToString();
             }
 
-            string url = GarciaApplicationConfiguration.SocketIOUrl;
-            string apiKey = GarciaApplicationConfiguration.SocketIOApiKey;
+            string url = MannFrameworkApplicationConfiguration.SocketIOUrl;
+            string apiKey = MannFrameworkApplicationConfiguration.SocketIOApiKey;
             IO.Options options = new IO.Options();
             options.Query = new Dictionary<string, string>();
             options.Query.Add("apikey", apiKey);

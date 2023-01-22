@@ -17,7 +17,7 @@ namespace MannFramework
         {
             get
             {
-                return GarciaLocalizationManager.Localize(this.ValidationMessage);
+                return MannFrameworkLocalizationManager.Localize(this.ValidationMessage);
             }
         }
 

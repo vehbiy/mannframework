@@ -53,14 +53,14 @@ namespace MannFramework
         public DatabaseConnectionType DatabaseConnectionType { get; set; }
 
         /// <summary>
-        /// Calculated using EnableCaching and GarciaORMConfiguration.DisableCaching properties
+        /// Calculated using EnableCaching and MannFrameworkORMConfiguration.DisableCaching properties
         /// </summary>
         protected virtual bool CachingEnabled
         {
             get
             {
-                //return this.EnableCaching && !GarciaConfiguration.DisableCaching && this.Cache != null;
-                return !GarciaConfiguration.DisableCaching && CacheProvider.Cache != null;
+                //return this.EnableCaching && !MannFrameworkConfiguration.DisableCaching && this.Cache != null;
+                return !MannFrameworkConfiguration.DisableCaching && CacheProvider.Cache != null;
             }
         }
 
@@ -105,7 +105,7 @@ namespace MannFramework
         {
             get
             {
-                return GarciaConfiguration.DefaultConnectionStringName;
+                return MannFrameworkConfiguration.DefaultConnectionStringName;
             }
         }
 
@@ -118,7 +118,7 @@ namespace MannFramework
         {
             this.InitializeCache();
             this.InitializeDatabaseConnection();
-            this.UseDeleteTime = GarciaConfiguration.UseDeleteTime;
+            this.UseDeleteTime = MannFrameworkConfiguration.UseDeleteTime;
 
             switch (this.DatabaseConnectionType)
             {
@@ -138,12 +138,12 @@ namespace MannFramework
         protected virtual void InitializeCache()
         {
             CacheProvider.Cache = CacheFactory.CreateCache();
-            this.UpdateCacheAfterSave = GarciaConfiguration.UpdateCacheAfterSave;
+            this.UpdateCacheAfterSave = MannFrameworkConfiguration.UpdateCacheAfterSave;
         }
 
         protected virtual void InitializeDatabaseConnection()
         {
-            this.DatabaseConnectionType = GarciaConfiguration.DefaultDatabaseConnectionType;
+            this.DatabaseConnectionType = MannFrameworkConfiguration.DefaultDatabaseConnectionType;
             this.DatabaseConnection = DatabaseFactory.CreateDatabase(this.ConnectionStringName);
         }
 
@@ -1344,7 +1344,7 @@ namespace MannFramework
             }
             else
             {
-                GarciaStringBuilder sb = new GarciaStringBuilder();
+                MannFrameworkStringBuilder sb = new MannFrameworkStringBuilder();
                 sb += "begin tran;insert into ";
                 //sb += this.EntityTypeName;
                 sb += entityTypeName;
@@ -1355,7 +1355,7 @@ namespace MannFramework
 
                 foreach (PropertyInfo property in properties)
                 {
-                    GarciaStringBuilder propertyName = new GarciaStringBuilder(property.Name);
+                    MannFrameworkStringBuilder propertyName = new MannFrameworkStringBuilder(property.Name);
 
                     if (property.PropertyType.IsSubclassOf(typeof(Entity)))
                     {
@@ -1390,7 +1390,7 @@ namespace MannFramework
 
                 foreach (PropertyInfo property in properties)
                 {
-                    GarciaStringBuilder propertyName = new GarciaStringBuilder(property.Name);
+                    MannFrameworkStringBuilder propertyName = new MannFrameworkStringBuilder(property.Name);
 
                     if (property.PropertyType.IsSubclassOf(typeof(Entity)))
                     {
@@ -1418,7 +1418,7 @@ namespace MannFramework
                     index++;
                 }
 
-                sb = new GarciaStringBuilder(sb.ToString().TrimEnd(',', ' '));
+                sb = new MannFrameworkStringBuilder(sb.ToString().TrimEnd(',', ' '));
                 sb += ");select @@identity;commit tran";
 
                 return sb.ToString();
@@ -1435,7 +1435,7 @@ namespace MannFramework
             }
             else
             {
-                GarciaStringBuilder sb = new GarciaStringBuilder();
+                MannFrameworkStringBuilder sb = new MannFrameworkStringBuilder();
                 sb += "update ";
                 //sb += this.EntityTypeName;
                 sb += entityTypeName;
@@ -1447,7 +1447,7 @@ namespace MannFramework
 
                 foreach (PropertyInfo property in properties)
                 {
-                    GarciaStringBuilder propertyName = new GarciaStringBuilder(property.Name);
+                    MannFrameworkStringBuilder propertyName = new MannFrameworkStringBuilder(property.Name);
 
                     if (property.PropertyType.IsSubclassOf(typeof(Entity)))
                     {
@@ -1483,7 +1483,7 @@ namespace MannFramework
                     index++;
                 }
 
-                sb = new GarciaStringBuilder(sb.ToString().TrimEnd(',', ' '));
+                sb = new MannFrameworkStringBuilder(sb.ToString().TrimEnd(',', ' '));
                 sb += " where ";
                 sb += this.IdPropertyName;
                 sb += " = '";
@@ -1509,7 +1509,7 @@ namespace MannFramework
             }
             else
             {
-                GarciaStringBuilder sb = new GarciaStringBuilder();
+                MannFrameworkStringBuilder sb = new MannFrameworkStringBuilder();
 
                 if (this.UseDeleteTime)
                 {
@@ -1583,7 +1583,7 @@ namespace MannFramework
             //string entityTypeName = entityType.Name;
             string entityTypeName = TypeToNameMapper.Instance.GetEntityNameFromMapper(entityType);
 
-            GarciaStringBuilder sb = new GarciaStringBuilder();
+            MannFrameworkStringBuilder sb = new MannFrameworkStringBuilder();
             string select = "";
             string selectProperties = this.GetSelectProperties(entityType, useAlias);
 
@@ -1595,7 +1595,7 @@ namespace MannFramework
 
                     if (!string.IsNullOrEmpty(joinSelectProperties))
                     {
-                        selectProperties = new GarciaStringBuilder(selectProperties, ", ", joinSelectProperties).ToString();
+                        selectProperties = new MannFrameworkStringBuilder(selectProperties, ", ", joinSelectProperties).ToString();
                     }
                 }
             }
@@ -1718,7 +1718,7 @@ namespace MannFramework
             foreach (PropertyInfo propertyInfo in properties)
             {
                 object propertyValue = propertyInfo.GetValue(t);
-                GarciaStringBuilder builder = new GarciaStringBuilder("@");
+                MannFrameworkStringBuilder builder = new MannFrameworkStringBuilder("@");
                 builder += propertyInfo.Name;
 
                 if (propertyInfo.PropertyType.IsSubclassOf(typeof(Entity)))
@@ -1848,7 +1848,7 @@ namespace MannFramework
 
         protected string GetOrderByString(Type type)
         {
-            GarciaStringBuilder orderByString = new GarciaStringBuilder();
+            MannFrameworkStringBuilder orderByString = new MannFrameworkStringBuilder();
             PropertyInfo[] properties = this.GetOrderByProperties(type);
 
             if (properties.Length != 0)
@@ -1874,7 +1874,7 @@ namespace MannFramework
 
         protected virtual internal string GetSelectProperties(Type type, bool useAlias = false)
         {
-            GarciaStringBuilder propertyText = new GarciaStringBuilder();
+            MannFrameworkStringBuilder propertyText = new MannFrameworkStringBuilder();
             List<string> selectProperties = new List<string>();
 
             PropertyInfo[] properties = this.GetSelectableProperties(type);

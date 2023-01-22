@@ -165,18 +165,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\GarciaAccountController.cs" />
-    <Compile Include="Controller\GarciaDashboardController.cs" />
-    <Compile Include="Controller\GarciaErrorController.cs" />
-    <Compile Include="Controller\GarciaLanguageController.cs" />
-    <Compile Include="Controller\GarciaMenuItemController.cs" />
+    <Compile Include="Controller\MannFrameworkAccountController.cs" />
+    <Compile Include="Controller\MannFrameworkDashboardController.cs" />
+    <Compile Include="Controller\MannFrameworkErrorController.cs" />
+    <Compile Include="Controller\MannFrameworkLanguageController.cs" />
+    <Compile Include="Controller\MannFrameworkMenuItemController.cs" />
     <Compile Include="Entity\AccessorType.cs" />
     <Compile Include="Entity\ApplicationEntity.cs" />
     <Compile Include="Entity\AssociationType.cs" />
     <Compile Include="Entity\DeviceType.cs" />
     <Compile Include="Entity\FileUploadResult.cs" />
     <Compile Include="Entity\FrameworkType.cs" />
-    <Compile Include="Entity\GarciaApplicationConfiguration.cs" />
+    <Compile Include="Entity\MannFrameworkApplicationConfiguration.cs" />
     <Compile Include="Entity\Gender.cs" />
     <Compile Include="Entity\GeneratorType.cs" />
     <Compile Include="Entity\Image.cs" />
@@ -203,7 +203,6 @@
     <Compile Include="Entity\ProjectSetting.cs" />
     <Compile Include="Entity\ProjectType.cs" />
     <Compile Include="Entity\Rule.cs" />
-    <Compile Include="Entity\SearchResult.cs" />
     <Compile Include="Entity\SessionState.cs" />
     <Compile Include="Entity\SourceControlType.cs" />
     <Compile Include="Entity\State.cs" />
@@ -214,8 +213,7 @@
     <Compile Include="Manager\ClickManager.cs" />
     <Compile Include="Manager\CodeGeneratorHelper.cs" />
     <Compile Include="Manager\FileManager.cs" />
-    <Compile Include="Manager\GarciaApplicationConfigurationManager.cs" />
-    <Compile Include="Entity\GarciaApplicationLocalizer.cs" />
+    <Compile Include="Entity\MannFrameworkApplicationLocalizer.cs" />
     <Compile Include="Manager\MembershipManager.cs" />
     <Compile Include="Manager\MenuItemManager.cs" />
     <Compile Include="Manager\ProjectManager.cs" />
@@ -226,7 +224,7 @@
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\SearchResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GarciaApplicationStartup.cs" />
+    <Compile Include="MannFrameworkApplicationStartup.cs" />
     <Compile Include="Entity\ProjectGroup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -234,7 +232,7 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Filter\Startup.Auth.cs" />
-    <None Include="Garcia.Application.nuspec" />
+    <None Include="MannFramework.Application.nuspec" />
     <None Include="packages.config" />
     <None Include="TfsPackageUploader.bat" />
     <Compile Include="Entity\Icon.cs" />

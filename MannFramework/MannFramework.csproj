@@ -99,13 +99,11 @@
     <Compile Include="EmptySpaceValidation.cs" />
     <Compile Include="Factory\HttpResponseFactory.cs" />
     <Compile Include="FlagEnumModelBinder.cs" />
-    <Compile Include="GarciaCollection.cs" />
     <Compile Include="CustomHttpResponseMessage.cs" />
-    <Compile Include="GarciaHttpRequestManager.cs" />
-    <Compile Include="GarciaLocalizationManager.cs" />
-    <Compile Include="GarciaMvcExtensions.cs" />
-    <Compile Include="GarciaStringBuilder.cs" />
-    <Compile Include="Database.cs" />
+    <Compile Include="MannFrameworkHttpRequestManager.cs" />
+    <Compile Include="MannFrameworkLocalizationManager.cs" />
+    <Compile Include="MannFrameworkMvcExtensions.cs" />
+    <Compile Include="MannFrameworkStringBuilder.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="DatabaseConnectionType.cs" />
     <Compile Include="DatabaseFactory.cs" />
@@ -116,26 +114,26 @@
     <Compile Include="EntityManager.cs" />
     <Compile Include="ExceptionManager.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="GarciaConfigurationManager.cs" />
+    <Compile Include="MannFrameworkConfigurationManager.cs" />
     <Compile Include="HttpResponseMessage\BadRequest.cs" />
     <Compile Include="HttpResponseMessage\NoContent.cs" />
     <Compile Include="HttpResponseMessage\NotFound.cs" />
     <Compile Include="HttpResponseMessage\UnSuccessRequestMessage.cs" />
     <Compile Include="InProcessCache.cs" />
-    <Compile Include="Interface\IGarciaHttpController.cs" />
+    <Compile Include="Interface\IMannFrameworkHttpController.cs" />
     <Compile Include="Interface\IHttpResponseFactory.cs" />
     <Compile Include="Interface\ILocalizer.cs" />
     <Compile Include="JoinClause.cs" />
     <Compile Include="ModelHelper.cs" />
-    <Compile Include="GarciaMvcController.cs" />
+    <Compile Include="MannFrameworkMvcController.cs" />
     <Compile Include="MvcIgnoreAttribute.cs" />
     <Compile Include="NotDeletedAttribute.cs" />
     <Compile Include="NotUpdatedAttribute.cs" />
     <Compile Include="OperationResultType.cs" />
-    <Compile Include="GarciaApiController.cs" />
+    <Compile Include="MannFrameworkApiController.cs" />
     <Compile Include="Model.cs" />
-    <Compile Include="GarciaModeType.cs" />
-    <Compile Include="GarciaConfiguration.cs" />
+    <Compile Include="MannFrameworkModeType.cs" />
+    <Compile Include="MannFrameworkConfiguration.cs" />
     <Compile Include="HashAlgorithm.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IParameterUpdater.cs" />
@@ -164,14 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Garcia.nuspec" />
+    <None Include="MannFramework.nuspec" />
     <None Include="packages.config" />
     <None Include="TfsPackageUploader.bat" />
     <None Include="NugetUploader.bat" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Manager\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="NuGet.exe" />
   </ItemGroup>
